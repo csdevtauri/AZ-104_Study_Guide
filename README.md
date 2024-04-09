@@ -1,6 +1,6 @@
 https://learn.microsoft.com/en-us/training/paths/az-104-administrator-prerequisites/
 
-## he high-level view of the skills measured in the exam:
+## The high-level view of the skills measured in the exam:
 
 - Manage Azure identities and governance (15-20%)
 - Implement and manage storage (10-15%)
