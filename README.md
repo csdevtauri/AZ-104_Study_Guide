@@ -14,16 +14,6 @@ This repository contains quizzes and resources for the AZ-104 Azure Administrato
 
 ## Quizzes
 
-
-[Quiz 1: Understanding Azure Resource Manager](01_Prerequisites_for_Azure_administrators/Quizz_1_Understanding_Azure_Resource_Manager.html)
-
-
-[Quiz 1: Understanding Azure Resource Manager](/01_Prerequisites_for_Azure_administrators/Quizz_1_Understanding_Azure_Resource_Manager)
-
-
-- [Quiz 1: Understanding Azure Resource Manager](./01_Prerequisites_for_Azure_administrators/Quizz_1_Understanding_Azure_Resource_Manager/README.md)
-
-
 - [Prerequisites for Azure Administrators](./01_Prerequisites_for_Azure_administrators/)
   - [Quiz 1: Understanding Azure Resource Manager](./01_Prerequisites_for_Azure_administrators/Quizz_1_Understanding_Azure_Resource_Manager)
   - [Quiz 2: Azure Resource Terminology](./01_Prerequisites_for_Azure_administrators/Quizz_2_Azure_Resource_Terminology)
