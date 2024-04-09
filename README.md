@@ -11,6 +11,7 @@ https://learn.microsoft.com/en-us/training/paths/az-104-administrator-prerequisi
 # AZ-104 Study Guide
 
 This repository contains quizzes and resources for the AZ-104 Azure Administrator certification exam.
+https://csdevtauri.github.io/AZ-104_Study_Guide/
 
 ## Quizzes
 
