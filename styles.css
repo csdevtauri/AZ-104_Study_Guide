@@ -1,0 +1,7 @@
+.correct {
+    background-color: lightgreen; /* Couleur de fond pour les réponses correctes */
+}
+
+.incorrect {
+    background-color: pink; /* Couleur de fond pour les réponses incorrectes */
+}
