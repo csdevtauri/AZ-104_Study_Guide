@@ -1,0 +1,19 @@
+#!/bin/bash
+
+output="combined.txt"
+> "$output" # Nettoie le fichier de sortie au début
+
+# Trouver et traiter les fichiers
+find . -type f \( ! -path './.git/*' ! -path './old/*' ! -name '.gitignore' ! -name "$output" \) -print0 | while IFS= read -r -d $'\0' file; do
+    # Affiche le fichier en cours de traitement sur stderr pour un feedback en temps réel
+    echo "Traitement de $file" >&2
+    # Ajoute une en-tête pour chaque fichier avec son chemin
+    echo "# Fichier d'origine: $file" >> "$output"
+    # Concatène le contenu du fichier à la suite
+    cat "$file" >> "$output"
+    # Ajoute une séparation pour la lisibilité
+    echo -e "\n---\n" >> "$output"
+done
+
+echo "Le script a terminé." >&2
+

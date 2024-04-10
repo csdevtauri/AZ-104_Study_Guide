@@ -1,0 +1,666 @@
+# Fichier d'origine: ./_includes/scripts.html
+<script src="{{ '/assets/js/checkboxes.js' | relative_url }}"></script>
+
+---
+
+# Fichier d'origine: ./scriptcombined
+#!/bin/bash
+
+output="combined.txt"
+> "$output" # Nettoie le fichier de sortie au début
+
+# Trouver et traiter les fichiers
+find . -type f \( ! -path './.git/*' ! -path './old/*' ! -name '.gitignore' ! -name "$output" \) -print0 | while IFS= read -r -d $'\0' file; do
+    # Affiche le fichier en cours de traitement sur stderr pour un feedback en temps réel
+    echo "Traitement de $file" >&2
+    # Ajoute une en-tête pour chaque fichier avec son chemin
+    echo "# Fichier d'origine: $file" >> "$output"
+    # Concatène le contenu du fichier à la suite
+    cat "$file" >> "$output"
+    # Ajoute une séparation pour la lisibilité
+    echo -e "\n---\n" >> "$output"
+done
+
+echo "Le script a terminé." >&2
+
+
+---
+
+# Fichier d'origine: ./styles.css
+.correct {
+    background-color: lightgreen; /* Couleur de fond pour les réponses correctes */
+}
+
+.incorrect {
+    background-color: pink; /* Couleur de fond pour les réponses incorrectes */
+}
+
+---
+
+# Fichier d'origine: ./01_Prerequisites_for_Azure_administrators/Quizz_6_.md
+
+---
+
+# Fichier d'origine: ./01_Prerequisites_for_Azure_administrators/Quizz_1_Understanding_Azure_Resource_Manager.html
+---
+layout: post
+title: "Quiz: Understanding Azure Resource Manager"
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz: Understanding Azure Resource Manager</title>
+    <style>
+        .correct { background-color: lightgreen; }
+        .option { display: block; margin-bottom: 10px; }
+        .question { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <form class="quiz-form" id="quiz1">
+        <div class="question">
+            Question 1: What advantage does Azure Resource Manager offer compared to managing resources individually?<br>
+            <label class="option"><input type="checkbox" name="q1" value="A"> A. It allows for less secure management of Azure resources.</label>
+            <label class="option"><input type="checkbox" name="q1" value="B"> B. It only allows the deployment of resources individually.</label>
+            <label class="option correct"><input type="checkbox" name="q1" value="C"> C. It allows for deploying, managing, and monitoring all resources as a group.</label>
+            <label class="option"><input type="checkbox" name="q1" value="D"> D. It limits deployment to a single environment.</label>
+        </div>
+        <div class="question">
+            Question 2: Which statement best describes Azure Resource Manager's deployment approach?<br>
+            <label class="option"><input type="checkbox" name="q2" value="A"> A. Imperative, primarily based on manual scripts.</label>
+            <label class="option correct"><input type="checkbox" name="q2" value="B"> B. Declarative, using templates to define infrastructure.</label>
+            <label class="option"><input type="checkbox" name="q2" value="C"> C. Exclusively command-line interface based.</label>
+            <label class="option"><input type="checkbox" name="q2" value="D"> D. Only supports deployments via the Azure portal.</label>
+        </div>
+        <div class="question">
+            Question 3: Which tool or service CANNOT interact with Azure Resource Manager?<br>
+            <label class="option"><input type="checkbox" name="q3" value="A"> A. Azure CLI</label>
+            <label class="option"><input type="checkbox" name="q3" value="B"> B. The Azure portal</label>
+            <label class="option"><input type="checkbox" name="q3" value="C"> C. Azure PowerShell</label>
+            <label class="option correct"><input type="checkbox" name="q3" value="D"> D. An Excel spreadsheet</label>
+        </div>
+        <div class="question">
+            Question 4: What is a fundamental principle in managing resources with Azure Resource Manager?<br>
+            <label class="option"><input type="checkbox" name="q4" value="A"> A. Resources must be managed and configured manually after deployment.</label>
+            <label class="option"><input type="checkbox" name="q4" value="B"> B. Dependencies between resources are not important and can be ignored.</label>
+            <label class="option correct"><input type="checkbox" name="q4" value="C"> C. Resources with the same lifecycle should be organized into a resource group.</label>
+            <label class="option"><input type="checkbox" name="q4" value="D"> D. RBAC (Role-Based Access Control) is not available with Azure Resource Manager.</label>
+        </div>
+        <div class="question">
+            Question 5: What is an advantage of using tags with Azure Resource Manager?<br>
+            <label class="option"><input type="checkbox" name="q5" value="A"> A. Automatically scale resources based on demand.</label>
+            <label class="option correct"><input type="checkbox" name="q5" value="B"> B. Logically organize all resources in your subscription.</label>
+            <label class="option"><input type="checkbox" name="q5" value="C"> C. Deploy resources only in test environments.</label>
+            <label class="option"><input type="checkbox" name="q5" value="D"> D. Restrict access to resources based on geographical location.</label>
+        </div>
+        <button type="submit">Vérifier les réponses</button>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const quizForm = document.getElementById('quiz1');
+            quizForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                document.querySelectorAll('.question').forEach(question => {
+                    const correctAnswer = question.querySelector(".correct");
+                    const isChecked = correctAnswer.querySelector("input[type='checkbox']").checked;
+                    if (isChecked) {
+                        correctAnswer.style.backgroundColor = "lightgreen";
+                    } else {
+                        correctAnswer.querySelectorAll("input[type='checkbox']").forEach((input) => {
+                            if(input.checked) {
+                                input.parentElement.style.backgroundColor = "pink";
+                            }
+                        });
+                    }
+                });
+                // Optionally, disable the form here to prevent changing answers after submission
+                // quizForm.querySelectorAll("input[type='checkbox']").forEach(input => input.disabled = true);
+            });
+        });
+    </script>
+</body>
+</html>
+
+---
+
+# Fichier d'origine: ./01_Prerequisites_for_Azure_administrators/Quizz_5_Azure_Resource_Reorganization.md
+### Quiz: Azure_Resource_Reorganization
+
+#### Question_1
+What happens to the source and target resource groups during the resource move process?
+
+- [ ] A. Both groups are deleted and recreated.
+- [ ] B. Write and delete operations are blocked on the resource groups.
+- [ ] C. Resources in the resource groups become inaccessible.
+- [ ] D. The resource groups are automatically renamed.
+
+#### Question_2
+Which page should you consult before starting the resource move process?
+
+- [ ] A. The Azure pricing page.
+- [ ] B. The Azure Resource Manager documentation page.
+- [ ] C. The Move operation support for resources page.
+- [ ] D. The Azure services page.
+
+#### Question_3
+Which operations are affected by locks during the resource move between resource groups or subscriptions?
+
+- [ ] A. Read-only operations.
+- [ ] B. Write and delete operations.
+- [ ] C. Monitoring and logging operations.
+- [ ] D. Networking operations.
+
+#### Question_4
+Which statement is correct regarding moving services with dependencies in Azure?
+
+- [ ] A. It is not necessary to move dependent resources at the same time.
+- [ ] B. All dependent resources must be moved separately.
+- [ ] C. You can move a virtual network without considering its dependent resources.
+- [ ] D. Dependent resources, such as virtual network gateways, must also be moved.
+
+#### Question_5
+What should you do after moving resources to a new resource group or subscription?
+
+- [ ] A. Update the scripts that interact with the moved resources.
+- [ ] B. Manually recreate the resources in the new group.
+- [ ] C. Wait 24 hours for the move to take effect.
+- [ ] D. No action is necessary; Azure automatically manages the process.
+
+---
+
+Are you ready to see the answers and explanations for each question?
+
+Here are the answers and explanations for each question:
+
+#### Question_1
+What happens to the source and target resource groups during the resource move process?
+
+- [ ] A. Both groups are deleted and recreated. (Incorrect)
+- [ ] B. Write and delete operations are blocked on the resource groups. (Incorrect)
+- [ ] C. Resources in the resource groups become inaccessible. (Incorrect)
+- [x] D. The resource groups are not affected; only the resources being moved are affected. (Correct)
+
+Explanation: During the resource move process, only the resources being moved are affected. The source and target resource groups remain unchanged and accessible.
+
+#### Question_2
+Which page should you consult before starting the resource move process?
+
+- [ ] A. The Azure pricing page. (Incorrect)
+- [ ] B. The Azure Resource Manager documentation page. (Incorrect)
+- [x] C. The Move operation support for resources page. (Correct)
+- [ ] D. The Azure services page. (Incorrect)
+
+Explanation: Before starting the resource move process, you should consult the "Move operation support for resources" page to understand the supported resources and any restrictions or limitations.
+
+#### Question_3
+Which operations are affected by locks during the resource move between resource groups or subscriptions?
+
+- [ ] A. Read-only operations. (Incorrect)
+- [x] B. Write and delete operations. (Correct)
+- [ ] C. Monitoring and logging operations. (Incorrect)
+- [ ] D. Networking operations. (Incorrect)
+
+Explanation: Locks during the resource move process affect write and delete operations, preventing accidental changes or deletions of the resources being moved.
+
+#### Question_4
+Which statement is correct regarding moving services with dependencies in Azure?
+
+- [ ] A. It is not necessary to move dependent resources at the same time. (Incorrect)
+- [ ] B. All dependent resources must be moved separately. (Incorrect)
+- [ ] C. You can move a virtual network without considering its dependent resources. (Incorrect)
+- [x] D. Dependent resources, such as virtual network gateways, must also be moved. (Correct)
+
+Explanation: When moving services with dependencies in Azure, dependent resources, such as virtual network gateways, must also be moved to ensure proper functionality.
+
+#### Question_5
+What should you do after moving resources to a new resource group or subscription?
+
+- [x] A. Update the scripts that interact with the moved resources. (Correct)
+- [ ] B. Manually recreate the resources in the new group. (Incorrect)
+- [ ] C. Wait 24 hours for the move to take effect. (Incorrect)
+- [ ] D. No action is necessary; Azure automatically manages the process. (Incorrect)
+
+Explanation: After moving resources to a new resource group or subscription, you should update any scripts that interact with the moved resources to reflect their new locations.
+---
+
+# Fichier d'origine: ./01_Prerequisites_for_Azure_administrators/Quizz_3_Managing_Azure_Resource_Groups.md
+Here's the English version of your quiz:
+
+### Quiz: Managing Azure Resource Groups
+
+#### Question 1
+What happens to the existing web apps in a resource group if you decide to deploy a third one?
+
+- [ ] A. The existing web apps will be automatically deleted.
+- [ ] B. The existing web apps will remain unchanged.
+- [ ] C. The existing web apps will be updated.
+- [ ] D. You cannot deploy more than two web apps in a resource group.
+
+#### Question 2
+Which statement is true about resource groups in Azure?
+
+- [ ] A. A resource can belong to multiple resource groups simultaneously.
+- [ ] B. A resource group can be renamed after its creation.
+- [ ] C. A resource group can contain resources of different types and regions.
+- [ ] D. Resources in a resource group must all be in the same region.
+
+#### Question 3
+What is a key factor to consider when defining a resource group?
+
+- [ ] A. Resources can be moved freely between resource groups without any limitations.
+- [ ] B. All resources in the group must share the same lifecycle.
+- [ ] C. A resource group must contain resources of only one type (e.g., only virtual machines).
+- [ ] D. Resource groups are primarily used for grouping resources in development environments, but not in production.
+
+#### Question 4
+Why does a resource group require a location?
+
+- [ ] A. To determine the billing region for the resources.
+- [ ] B. To indicate where to store the metadata about the resources.
+- [ ] C. To restrict resource creation to a specific region.
+- [ ] D. The location of the resource group is not important and can be selected randomly.
+
+#### Question 5
+What is the best practice concerning interactions between resources from different resource groups?
+
+- [ ] A. Resources from different resource groups cannot interact with each other.
+- [ ] B. Resources should interact only if they share the same type and region.
+- [ ] C. Interactions are common and acceptable, especially if the resources are related but do not share the same lifecycle.
+- [ ] D. It is recommended to place all interconnected resources in the same resource group for easier management.
+
+---
+
+Are you ready to see the answers and explanations for each question?
+
+Here are the answers and explanations for each question:
+
+#### Question 1
+What happens to the existing web apps in a resource group if you decide to deploy a third one?
+
+- [ ] A. The existing web apps will be automatically deleted. (Incorrect)
+- [x] B. The existing web apps will remain unchanged. (Correct)
+- [ ] C. The existing web apps will be updated. (Incorrect)
+- [ ] D. You cannot deploy more than two web apps in a resource group. (Incorrect)
+
+Explanation: Deploying a new web app in a resource group does not affect the existing web apps. They will remain unchanged.
+
+#### Question 2
+Which statement is true about resource groups in Azure?
+
+- [ ] A. A resource can belong to multiple resource groups simultaneously. (Incorrect)
+- [ ] B. A resource group can be renamed after its creation. (Incorrect)
+- [x] C. A resource group can contain resources of different types and regions. (Correct)
+- [ ] D. Resources in a resource group must all be in the same region. (Incorrect)
+
+Explanation: A resource group can contain resources of different types and regions. However, a resource can belong to only one resource group, and a resource group cannot be renamed after its creation.
+
+#### Question 3
+What is a key factor to consider when defining a resource group?
+
+- [ ] A. Resources can be moved freely between resource groups without any limitations. (Incorrect)
+- [x] B. All resources in the group must share the same lifecycle. (Correct)
+- [ ] C. A resource group must contain resources of only one type (e.g., only virtual machines). (Incorrect)
+- [ ] D. Resource groups are primarily used for grouping resources in development environments, but not in production. (Incorrect)
+
+Explanation: A key factor when defining a resource group is to ensure that all resources within the group share the same lifecycle. This means they should be created, updated, and deleted together.
+
+#### Question 4
+Why does a resource group require a location?
+
+- [ ] A. To determine the billing region for the resources. (Incorrect)
+- [x] B. To indicate where to store the metadata about the resources. (Correct)
+- [ ] C. To restrict resource creation to a specific region. (Incorrect)
+- [ ] D. The location of the resource group is not important and can be selected randomly. (Incorrect)
+
+Explanation: A resource group requires a location to indicate where to store the metadata about the resources. The location does not necessarily restrict the creation of resources to that specific region.
+
+#### Question 5
+What is the best practice concerning interactions between resources from different resource groups?
+
+- [ ] A. Resources from different resource groups cannot interact with each other. (Incorrect)
+- [ ] B. Resources should interact only if they share the same type and region. (Incorrect)
+- [x] C. Interactions are common and acceptable, especially if the resources are related but do not share the same lifecycle. (Correct)
+- [ ] D. It is recommended to place all interconnected resources in the same resource group for easier management. (Incorrect)
+
+Explanation: Interactions between resources from different resource groups are common and acceptable, especially if the resources are related but do not share the same lifecycle. It is not necessary to place all interconnected resources in the same resource group for easier management.
+---
+
+# Fichier d'origine: ./01_Prerequisites_for_Azure_administrators/Quizz_4_Azure_Resource_Manager_Locks.md
+### Quiz: Azure_Resource_Manager_Locks
+
+#### Question_1
+What is the primary purpose of using Resource_Manager locks in Azure?
+
+- [ ] A. To increase the speed of resource deployment.
+- [ ] B. To prevent accidental deletion of resources.
+- [ ] C. To automate resource creation.
+- [ ] D. To reduce resource management costs.
+
+#### Question_2
+Where can a Resource_Manager lock be associated?
+
+- [ ] A. Only to an individual resource.
+- [ ] B. To a subscription, a resource group, or a specific resource.
+- [ ] C. Only to an Azure subscription.
+- [ ] D. Only to an Azure Resource Manager template.
+
+#### Question_3
+What happens with locks when they are applied to a resource group?
+
+- [ ] A. Child resources do not inherit locks.
+- [ ] B. Child resources automatically inherit locks.
+- [ ] C. Locks must be manually applied to each child resource.
+- [ ] D. Locks are reset each time a new resource is added to the group.
+
+#### Question_4
+What are the two types of resource locks available in Azure_Resource_Manager?
+
+- [ ] A. Update locks and creation locks.
+- [ ] B. Read-only locks and delete locks.
+- [ ] C. Configuration locks and dynamic locks.
+- [ ] D. Permanent locks and temporary locks.
+
+#### Question_5
+Who is authorized to create or delete management locks in Azure?
+
+- [ ] A. Any user with read access to the resource.
+- [ ] B. Only the User Access Administrator and Owner roles.
+- [ ] C. Only the Azure Active Directory global administrator.
+- [ ] D. All members of the organization with an Azure account.
+
+---
+
+Are you ready to see the answers and explanations for each question?
+
+Here are the answers and explanations for each question:
+
+#### Question_1
+What is the primary purpose of using Resource_Manager locks in Azure?
+
+- [ ] A. To increase the speed of resource deployment. (Incorrect)
+- [x] B. To prevent accidental deletion of resources. (Correct)
+- [ ] C. To automate resource creation. (Incorrect)
+- [ ] D. To reduce resource management costs. (Incorrect)
+
+Explanation: Resource Manager locks in Azure are primarily used to prevent accidental deletion or modification of resources. They do not affect the speed of resource deployment, automate resource creation, or reduce resource management costs.
+
+#### Question_2
+Where can a Resource_Manager lock be associated?
+
+- [ ] A. Only to an individual resource. (Incorrect)
+- [x] B. To a subscription, a resource group, or a specific resource. (Correct)
+- [ ] C. Only to an Azure subscription. (Incorrect)
+- [ ] D. Only to an Azure Resource Manager template. (Incorrect)
+
+Explanation: A Resource Manager lock can be associated with a subscription, a resource group, or a specific resource. It is not limited to individual resources, Azure subscriptions, or Azure Resource Manager templates.
+
+#### Question_3
+What happens with locks when they are applied to a resource group?
+
+- [ ] A. Child resources do not inherit locks. (Incorrect)
+- [x] B. Child resources automatically inherit locks. (Correct)
+- [ ] C. Locks must be manually applied to each child resource. (Incorrect)
+- [ ] D. Locks are reset each time a new resource is added to the group. (Incorrect)
+
+Explanation: When locks are applied to a resource group, child resources automatically inherit those locks. They do not need to be manually applied to each child resource, and they are not reset when new resources are added to the group.
+
+#### Question_4
+What are the two types of resource locks available in Azure_Resource_Manager?
+
+- [ ] A. Update locks and creation locks. (Incorrect)
+- [ ] B. Read-only locks and delete locks. (Incorrect)
+- [x] C. CanNotDelete and ReadOnly locks. (Correct)
+- [ ] D. Permanent locks and temporary locks. (Incorrect)
+
+Explanation: The two types of resource locks available in Azure Resource Manager are CanNotDelete and ReadOnly locks. CanNotDelete locks prevent deletion of the resource, while ReadOnly locks prevent deletion, modification, and creation (write operations) but allow read operations.
+
+#### Question_5
+Who is authorized to create or delete management locks in Azure?
+
+- [ ] A. Any user with read access to the resource. (Incorrect)
+- [x] B. Only the User Access Administrator and Owner roles. (Correct)
+- [ ] C. Only the Azure Active Directory global administrator. (Incorrect)
+- [ ] D. All members of the organization with an Azure account. (Incorrect)
+
+Explanation: Only the User Access Administrator and Owner roles are authorized to create or delete management locks in Azure. This requires specific permissions, and not all users, such as those with only read access or all members of the organization with an Azure account, have these permissions. The Azure Active Directory global administrator does not have these permissions by default.
+---
+
+# Fichier d'origine: ./01_Prerequisites_for_Azure_administrators/Quizz_2_Azure_Resource_Terminology.md
+Here's the English version of your quiz:
+
+### Quiz: Azure Resource Terminology
+
+#### Question 1
+What is a resource in Azure?
+
+- [ ] A. A specific service offered by Azure for managing your applications.
+- [ ] B. An operation that you can perform with Azure Resource Manager.
+- [ ] C. A manageable item available in Azure, such as a virtual machine or a storage account.
+- [ ] D. Azure-specific documentation describing how to deploy services.
+
+#### Question 2
+What is the best description of a resource group in Azure?
+
+- [ ] A. A collection of Azure services used to manage web applications.
+- [ ] B. A container that holds related resources for an Azure solution.
+- [ ] C. A database in Azure storing information about resources.
+- [ ] D. A tool used to monitor resources in Azure.
+
+#### Question 3
+What is the role of a resource provider in Azure?
+
+- [ ] A. Validate JSON templates before deployment.
+- [ ] B. Provide resources that you can deploy and manage via Resource Manager.
+- [ ] C. Organize resources into logical groups to simplify management.
+- [ ] D. Ensure the security and compliance of deployed resources.
+
+#### Question 4
+What is a template in the context of Azure Resource Manager?
+
+- [ ] A. A step-by-step guide for deploying Azure resources.
+- [ ] B. A graphical user interface for managing Azure resources.
+- [ ] C. A JSON file defining one or more resources to deploy.
+- [ ] D. A set of PowerShell commands for creating Azure resources.
+
+#### Question 5
+What is meant by "declarative syntax" in reference to Azure Resource Manager?
+
+- [ ] A. A method for declaring variables in Azure PowerShell.
+- [ ] B. A syntax that allows you to declare what you want to create without writing the sequence of commands to create it.
+- [ ] C. A programming language used exclusively for Azure Functions.
+- [ ] D. A strict rule that defines how to name your Azure resources.
+
+---
+
+Are you ready to see the answers and explanations for each question?
+
+Here are the answers and explanations for each question:
+
+#### Question 1
+What is a resource in Azure?
+
+- [ ] A. A specific service offered by Azure for managing your applications. (Incorrect)
+- [ ] B. An operation that you can perform with Azure Resource Manager. (Incorrect)
+- [x] C. A manageable item available in Azure, such as a virtual machine or a storage account. (Correct)
+- [ ] D. Azure-specific documentation describing how to deploy services. (Incorrect)
+
+Explanation: A resource in Azure is a manageable item available within the platform, such as a virtual machine, storage account, database, or virtual network.
+
+#### Question 2
+What is the best description of a resource group in Azure?
+
+- [ ] A. A collection of Azure services used to manage web applications. (Incorrect)
+- [x] B. A container that holds related resources for an Azure solution. (Correct)
+- [ ] C. A database in Azure storing information about resources. (Incorrect)
+- [ ] D. A tool used to monitor resources in Azure. (Incorrect)
+
+Explanation: A resource group in Azure is a container that holds related resources for an Azure solution, making it easier to manage, deploy, update, and monitor them as a group.
+
+#### Question 3
+What is the role of a resource provider in Azure?
+
+- [ ] A. Validate JSON templates before deployment. (Incorrect)
+- [x] B. Provide resources that you can deploy and manage via Resource Manager. (Correct)
+- [ ] C. Organize resources into logical groups to simplify management. (Incorrect)
+- [ ] D. Ensure the security and compliance of deployed resources. (Incorrect)
+
+Explanation: A resource provider in Azure is responsible for providing resources that you can deploy and manage via Azure Resource Manager. They expose APIs for interacting with the specific resource type they represent.
+
+#### Question 4
+What is a template in the context of Azure Resource Manager?
+
+- [ ] A. A step-by-step guide for deploying Azure resources. (Incorrect)
+- [ ] B. A graphical user interface for managing Azure resources. (Incorrect)
+- [x] C. A JSON file defining one or more resources to deploy. (Correct)
+- [ ] D. A set of PowerShell commands for creating Azure resources. (Incorrect)
+
+Explanation: A template in Azure Resource Manager is a JSON file that defines one or more resources to deploy, allowing you to define your infrastructure as code.
+
+#### Question 5
+What is meant by "declarative syntax" in reference to Azure Resource Manager?
+
+- [ ] A. A method for declaring variables in Azure PowerShell. (Incorrect)
+- [x] B. A syntax that allows you to declare what you want to create without writing the sequence of commands to create it. (Correct)
+- [ ] C. A programming language used exclusively for Azure Functions. (Incorrect)
+- [ ] D. A strict rule that defines how to name your Azure resources. (Incorrect)
+
+Explanation: Declarative syntax in Azure Resource Manager allows you to define the desired state of your resources without specifying the exact sequence of commands to achieve that state. This simplifies the management and deployment of resources, as Azure Resource Manager handles the details of creating and configuring resources based on your template.
+---
+
+# Fichier d'origine: ./_layouts/default.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.title }}</title>
+    {% include scripts.html %}
+</head>
+<body>
+    {{ content }}
+</body>
+</html>
+
+---
+
+# Fichier d'origine: ./README.md
+https://learn.microsoft.com/en-us/training/paths/az-104-administrator-prerequisites/
+
+## The high-level view of the skills measured in the exam:
+
+- Manage Azure identities and governance (15-20%)
+- Implement and manage storage (10-15%)
+- Deploy and manage Azure compute resources (25-30%)
+- Configure and manage virtual networking (30-35%)
+- Monitor and back up Azure resources (10-15%)
+
+# AZ-104 Study Guide
+
+This repository contains quizzes and resources for the AZ-104 Azure Administrator certification exam.
+https://csdevtauri.github.io/AZ-104_Study_Guide/
+
+## Quizzes
+
+- [Prerequisites for Azure Administrators](./01_Prerequisites_for_Azure_administrators/)
+  - [Quiz 1: Understanding Azure Resource Manager](./01_Prerequisites_for_Azure_administrators/Quizz_1_Understanding_Azure_Resource_Manager.html)
+  - [Quiz 2: Azure Resource Terminology](./01_Prerequisites_for_Azure_administrators/Quizz_2_Azure_Resource_Terminology)
+  - ...continue linking other quizzes similarly
+
+## Additional Resources
+
+- [Manage Identities and Governance in Azure](./02_Manage_identities_and_governance_in_Azure/)
+- [Implement and Manage Storage in Azure](./03_Implement_and_manage_storage_in_Azure/)
+- ...continue with the rest of the directories
+
+For more information on how to use these resources, please refer to the specific quiz or section.
+
+
+---
+
+# Fichier d'origine: ./_config.yml
+theme: jekyll-theme-satellite
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+title: AZ-104 Study Guide
+permalink: pretty
+
+
+---
+
+# Fichier d'origine: ./.github/workflows/jekyll-gh-pages.yml
+# Sample workflow for building and deploying a Jekyll site to GitHub Pages
+name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+---
+
+# Fichier d'origine: ./assets/js/checkboxes.js
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('.quiz-form').forEach(form => {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      let score = 0;
+      form.querySelectorAll('.question').forEach(question => {
+        const answer = question.querySelector("input[type='checkbox']:checked");
+        if (answer && answer.classList.contains('correct')) {
+          score++;
+        }
+      });
+      alert(`Votre score est de ${score}/${form.querySelectorAll('.question').length}.`);
+    });
+  });
+});
+
+---
+
