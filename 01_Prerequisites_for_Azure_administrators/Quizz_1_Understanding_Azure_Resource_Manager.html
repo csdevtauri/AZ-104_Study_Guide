@@ -1,0 +1,80 @@
+---
+layout: post
+title: "Quiz: Understanding Azure Resource Manager"
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz: Understanding Azure Resource Manager</title>
+    <style>
+        .correct { background-color: lightgreen; }
+        .option { display: block; margin-bottom: 10px; }
+        .question { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <form class="quiz-form" id="quiz1">
+        <div class="question">
+            Question 1: What advantage does Azure Resource Manager offer compared to managing resources individually?<br>
+            <label class="option"><input type="checkbox" name="q1" value="A"> A. It allows for less secure management of Azure resources.</label>
+            <label class="option"><input type="checkbox" name="q1" value="B"> B. It only allows the deployment of resources individually.</label>
+            <label class="option correct"><input type="checkbox" name="q1" value="C"> C. It allows for deploying, managing, and monitoring all resources as a group.</label>
+            <label class="option"><input type="checkbox" name="q1" value="D"> D. It limits deployment to a single environment.</label>
+        </div>
+        <div class="question">
+            Question 2: Which statement best describes Azure Resource Manager's deployment approach?<br>
+            <label class="option"><input type="checkbox" name="q2" value="A"> A. Imperative, primarily based on manual scripts.</label>
+            <label class="option correct"><input type="checkbox" name="q2" value="B"> B. Declarative, using templates to define infrastructure.</label>
+            <label class="option"><input type="checkbox" name="q2" value="C"> C. Exclusively command-line interface based.</label>
+            <label class="option"><input type="checkbox" name="q2" value="D"> D. Only supports deployments via the Azure portal.</label>
+        </div>
+        <div class="question">
+            Question 3: Which tool or service CANNOT interact with Azure Resource Manager?<br>
+            <label class="option"><input type="checkbox" name="q3" value="A"> A. Azure CLI</label>
+            <label class="option"><input type="checkbox" name="q3" value="B"> B. The Azure portal</label>
+            <label class="option"><input type="checkbox" name="q3" value="C"> C. Azure PowerShell</label>
+            <label class="option correct"><input type="checkbox" name="q3" value="D"> D. An Excel spreadsheet</label>
+        </div>
+        <div class="question">
+            Question 4: What is a fundamental principle in managing resources with Azure Resource Manager?<br>
+            <label class="option"><input type="checkbox" name="q4" value="A"> A. Resources must be managed and configured manually after deployment.</label>
+            <label class="option"><input type="checkbox" name="q4" value="B"> B. Dependencies between resources are not important and can be ignored.</label>
+            <label class="option correct"><input type="checkbox" name="q4" value="C"> C. Resources with the same lifecycle should be organized into a resource group.</label>
+            <label class="option"><input type="checkbox" name="q4" value="D"> D. RBAC (Role-Based Access Control) is not available with Azure Resource Manager.</label>
+        </div>
+        <div class="question">
+            Question 5: What is an advantage of using tags with Azure Resource Manager?<br>
+            <label class="option"><input type="checkbox" name="q5" value="A"> A. Automatically scale resources based on demand.</label>
+            <label class="option correct"><input type="checkbox" name="q5" value="B"> B. Logically organize all resources in your subscription.</label>
+            <label class="option"><input type="checkbox" name="q5" value="C"> C. Deploy resources only in test environments.</label>
+            <label class="option"><input type="checkbox" name="q5" value="D"> D. Restrict access to resources based on geographical location.</label>
+        </div>
+        <button type="submit">Vérifier les réponses</button>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const quizForm = document.getElementById('quiz1');
+            quizForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                document.querySelectorAll('.question').forEach(question => {
+                    const correctAnswer = question.querySelector(".correct");
+                    const isChecked = correctAnswer.querySelector("input[type='checkbox']").checked;
+                    if (isChecked) {
+                        correctAnswer.style.backgroundColor = "lightgreen";
+                    } else {
+                        correctAnswer.querySelectorAll("input[type='checkbox']").forEach((input) => {
+                            if(input.checked) {
+                                input.parentElement.style.backgroundColor = "pink";
+                            }
+                        });
+                    }
+                });
+                // Optionally, disable the form here to prevent changing answers after submission
+                // quizForm.querySelectorAll("input[type='checkbox']").forEach(input => input.disabled = true);
+            });
+        });
+    </script>
+</body>
+</html>
