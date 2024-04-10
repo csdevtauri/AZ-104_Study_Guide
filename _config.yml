@@ -3,3 +3,6 @@ plugins:
   - jekyll-relative-links
 relative_links:
   enabled: true
+title: AZ-104 Study Guide
+permalink: pretty
+
